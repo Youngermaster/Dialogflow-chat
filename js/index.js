@@ -103,7 +103,7 @@ function fetchmsg(){
         }).then(res => res.json())
          .then(response => {
           console.log(response);
-        //  serverMessage(response.Reply);
+        serverMessage(response.Reply);
           speechSynthesis.speak( new SpeechSynthesisUtterance(response.Reply))
         
           
