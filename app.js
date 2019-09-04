@@ -1,14 +1,50 @@
 const dialogflow = require('dialogflow');
 const uuid = require('uuid');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+
+// A unique identifier for the given session
+const sessionId = uuid.v4();
+
+
+// Settings
+app.set('port', process.env.PORT || 3000);
+app.use(bodyParser.urlencoded(
+  {
+    extended:false
+  }
+));
+
+app.use(function (req, res, next) {
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
+app.post('/send-msg', (req, res) => {
+
+  runSample(req.body.MSG)
+  .then( data => {
+    res.send({Reply:data})
+  });
+});
+
+// starting the server
+app.listen(app.get('port'), () => {
+  console.log(`server on port ${app.get('port')}`);
+});
 
 /**
  * Send a query to the dialogflow agent, and return the query result.
  * @param {string} projectId The project to be used
  */
-async function runSample(projectId = 'metis-es-lfflxf') {
-  // A unique identifier for the given session
-  const sessionId = uuid.v4();
-
+async function runSample(userMessage, projectId = 'metis-es-lfflxf') {
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient({
       keyFilename: "/home/youngermaster/GitHub/dialogflow-chat/METIS-ES-a64062639f09.json"
@@ -21,7 +57,7 @@ async function runSample(projectId = 'metis-es-lfflxf') {
     queryInput: {
       text: {
         // The query to send to the dialogflow agent
-        text: 'hola',
+        text: userMessage,
         // The language used by the client (en-US)
         languageCode: 'es',
       },
@@ -39,6 +75,5 @@ async function runSample(projectId = 'metis-es-lfflxf') {
   } else {
     console.log(`  No intent matched.`);
   }
+  return result.fulfillmentText;
 }
-
-runSample();

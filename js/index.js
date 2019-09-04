@@ -55,7 +55,7 @@ function insertMessage() {
     return false;
   }
   $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
-  // fetchmsg() 
+  fetchmsg() 
   
   $('.message-input').val(null);
   updateScrollbar();
@@ -65,8 +65,6 @@ function insertMessage() {
 document.getElementById("mymsg").onsubmit = (e)=>{
   e.preventDefault() 
   insertMessage();
-  serverMessage("hello");
-  speechSynthesis.speak( new SpeechSynthesisUtterance("hello"))
 }
 
 function serverMessage(response2) {
@@ -75,13 +73,13 @@ function serverMessage(response2) {
   if ($('.message-input').val() != '') {
     return false;
   }
-  $('<div class="message loading new"><figure class="avatar"><img src="assets/METIS Logo 3.png" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+  $('<div class="message loading new"><figure class="avatar"><img src="css/bot.png" /></figure><span></span></div>').appendTo($('.mCSB_container'));
   updateScrollbar();
   
 
   setTimeout(function() {
     $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="assets/METIS Logo 3.png" /></figure>' + response2 + '</div>').appendTo($('.mCSB_container')).addClass('new');
+    $('<div class="message new"><figure class="avatar"><img src="css/bot.png" /></figure>' + response2 + '</div>').appendTo($('.mCSB_container')).addClass('new');
     updateScrollbar();
   }, 100 + (Math.random() * 20) * 100);
 
@@ -90,7 +88,7 @@ function serverMessage(response2) {
 
 function fetchmsg(){
 
-     var url = 'http://localhost:5000/send-msg';
+     var url = 'http://localhost:5500/send-msg';
       
       const data = new URLSearchParams();
       for (const pair of new FormData(document.getElementById("mymsg"))) {

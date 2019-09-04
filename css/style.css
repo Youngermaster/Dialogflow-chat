@@ -16,8 +16,7 @@ body {
 }
 
 body {
-  /*background: linear-gradient(135deg, #e9ff00, #ff3434);*/
-  background: whitesmoke;
+  background: linear-gradient(135deg, #e9ff00, #ff3434);
   background-size: cover;
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
@@ -285,9 +284,9 @@ Message Box
   z-index: 1;
   top: 9px;
   right: 10px;
-  color: black;
+  color: #fff;
   border: none;
-  background: white;
+  background: #248A52;
   font-size: 10px;
   text-transform: uppercase;
   line-height: 1;
@@ -462,7 +461,7 @@ ul {
 }
 ul li{
   display: inline;
-  background: rgb(255, 0, 0);
+  background: #1D7745;
   padding: 4px;
   border-radius: 10px;
   font-size: 15px;
@@ -476,7 +475,7 @@ ul li{
 }
 .fa-microphone{
   font-size: 24px;
-  color: white;
+  color: #1D7745;
 }
 
 #sihul li{
