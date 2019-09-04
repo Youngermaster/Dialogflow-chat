@@ -27,6 +27,11 @@ app.use(function (req, res, next) {
   next();
 });
 
+// Routes
+app.get('/', function (req, res) {
+  res.sendFile("index.html");
+})
+
 app.post('/send-msg', (req, res) => {
 
   runSample(req.body.MSG)
@@ -36,7 +41,7 @@ app.post('/send-msg', (req, res) => {
 });
 
 // starting the server
-app.listen(app.get('port'), () => {
+app.listen(app.get('port'), (req, res) => {
   console.log(`server on port ${app.get('port')}`);
 });
 
