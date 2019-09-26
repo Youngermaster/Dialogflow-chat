@@ -52,7 +52,7 @@ app.listen(app.get('port'), (req, res) => {
 async function runSample(userMessage, projectId = 'metis-es-lfflxf') {
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient({
-      keyFilename: "/home/youngermaster/GitHub/dialogflow-chat/METIS-ES-a64062639f09.json"
+      keyFilename: "/home/youngermaster/GitHub/Dialogflow-chat/METIS-ES-a64062639f09.json"
     });
   const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
