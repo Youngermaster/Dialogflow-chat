@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 // A unique identifier for the given session
 const sessionId = uuid.v4();
 
-
 // Settings
 app.set('port', process.env.PORT || 5500);
 app.use(bodyParser.urlencoded(

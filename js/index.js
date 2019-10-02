@@ -1,8 +1,5 @@
 var $messages = $('.messages-content');
-var serverResponse = "wala";
 
-
-var suggession;
 //speech reco
 try {
   var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -19,15 +16,14 @@ $('#start-record-btn').on('click', function(e) {
 
 recognition.onresult = (event) => {
   const speechToText = event.results[0][0].transcript;
- document.getElementById("MSG").value= speechToText;
-  //console.log(speechToText)
+  document.getElementById("MSG").value= speechToText;
+  console.log(speechToText)
   insertMessage()
 }
 
-
 function listendom(no){
   console.log(no)
-  //console.log(document.getElementById(no))
+  console.log(document.getElementById(no))
 document.getElementById("MSG").value= no.innerHTML;
   insertMessage();
 }
@@ -35,9 +31,8 @@ document.getElementById("MSG").value= no.innerHTML;
 $(window).load(function() {
   $messages.mCustomScrollbar();
   setTimeout(function() {
-    serverMessage("Hola! Yo te ayudaré en lo que necesitas, háblame.");
+    serverMessage("Hola! <br> Yo te ayudaré en lo que necesitas, háblame.");
   }, 100);
-
 });
 
 function updateScrollbar() {
@@ -46,8 +41,6 @@ function updateScrollbar() {
     timeout: 0
   });
 }
-
-
 
 function insertMessage() {
   msg = $('.message-input').val();
@@ -85,31 +78,25 @@ function serverMessage(response2) {
 
 }
 
-
 function fetchmsg(){
 
-     var url = 'http://localhost:5500/send-msg';
-      
-      const data = new URLSearchParams();
-      for (const pair of new FormData(document.getElementById("mymsg"))) {
-          data.append(pair[0], pair[1]);
-          console.log(pair)
-      }
-    
-      console.log("abc",data)
-        fetch(url, {
-          method: 'POST',
-          body:data
-        }).then(res => res.json())
-         .then(response => {
-          console.log(response);
-        serverMessage(response.Reply);
-          speechSynthesis.speak( new SpeechSynthesisUtterance(response.Reply))
-        
-          
-         })
-          .catch(error => console.error('Error h:', error));
+  var url = 'http://localhost:5500/send-msg';
+  
+  const data = new URLSearchParams();
+  for (const pair of new FormData(document.getElementById("mymsg"))) {
+      data.append(pair[0], pair[1]);
+      console.log(pair)
+  }
 
+  console.log("abc",data)
+    fetch(url, {
+      method: 'POST',
+      body:data
+    }).then(res => res.json())
+      .then(response => {
+      console.log(response);
+    serverMessage(response.Reply);
+      speechSynthesis.speak( new SpeechSynthesisUtterance(response.Reply))
+      })
+      .catch(error => console.error('Error h:', error));
 }
-
-
